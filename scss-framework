@@ -1,0 +1,3 @@
+npm install -g sass //installing sass
+sass scss/styles.scss css/styles.css //compalinig
+sass --watch scss/styles.scss:css/styles.css //wattch autmatically
