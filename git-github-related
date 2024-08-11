@@ -1,0 +1,17 @@
+
+// installing & configure git 
+sudo apt install git
+git config --global user.name "RohalSaini"
+git config --global user.email "rohalsainia94@gmail.com"
+
+// creating branch & pushing code to it
+echo "# UI" >> README.md
+git init
+git add .
+git commit -m "UI version 1.0.0"
+git branch ui-version.0.0.1
+git checkout ui-version.0.0.1 
+git branch
+git push -u origin ui-version.0.0.1 
+git remote add origin https://github.com/RohalSaini/UI.git
+git push -u origin ui-version.0.0.1 
