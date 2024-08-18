@@ -1,0 +1,460 @@
+cheat code 1: for fontsize,margin,padding
+here are creating the different font size using maths
+
+/ best technique
+$base-font-size: 1rem;
+$font-size-sm : $base-font-size * .75;
+$font-size-lg: $base-font-size * 1.5;
+$font-size-xl: $base-font-size * 2;
+$font-size-xxl: $base-font-size* 3;
+
+
+
+cheat code 2: create the color,margin,padding plaetete  for easy asssesing
+// color map platette
+$colors: (
+    "primary": $primary_color,
+    "secondary": $secondary,
+    "error": $error,
+    "info": $info,
+    "blue": #1919e6,
+    "red": red,
+    "green": green,
+    "white": white,
+    black: black
+);
+
+// gettitng value from map
+.test-btn {
+    background-color: map-get($colors,"blue");
+}
+
+
+@debug map-get($colors, $key:"green" );
+@debug map-has-key($map: $colors, $key:"secondary" );
+@debug map-has-key($map: $colors, $key:"tertairy" );
+@debug map-remove($map: $colors, $key: "red" ); // remicing red entry from map
+@debug map-merge($map1: $colors,$map2: ("pink": pink));
+@debug map-has-key($map: $colors, $key:"pink" );
+
+
+
+cheat code 3:  here we are crating the autmatic color bg and text color from platette
+
+@each $key, $val in $colors {
+    .text-#{$key} {
+        color: $val
+    }
+    .bg-#{$key} {
+        background-color: $val;
+    }
+}
+
+// here we can use at its best  
+<p class=" bg-primary text-white">Helloe </p>
+
+
+example:
+text-primary { }
+bg-primary {}
+
+
+cheat code 4: creating light varition for each coloe and dark variabtion for each color.
+
+
+ 
+@each $key, $val in $colors {
+    .text-#{$key} {
+        color: $val
+    }
+    .bg-#{$key} {
+        background-color: $val;
+    }
+
+    // light variation
+    @for $i from 1 through 9 {
+        .text-#{$key}-light-#{$i} {
+          color: mix(white,$val, $i *10)
+        }
+        .bg-#{$key}-light-#{$i} {
+            background-color: mix(white,$val,$i * 10);
+        }
+    }
+        // dark variation
+        @for $i from 1 through 9 {
+            .text-#{$key}-dark-#{$i} {
+              color: mix(black,$val, $i *10)
+            }
+            .bg-#{$key}-dark-#{$i} {
+                background-color: mix(black,$val,$i * 10);
+            }
+        }
+}
+
+example:
+<span class="bg-primary-dark8 text-white"> </span>
+
+
+code 5 : if else statment.
+we will not create the variation for white and black
+@each $key, $val in $colors {
+    .text-#{$key} {
+        color: $val
+    }
+    .bg-#{$key} {
+        background-color: $val;
+    }
+
+    @if($val != black and $val != white) {
+  
+    // light variation
+    @for $i from 1 through 9 {
+        .text-#{$key}-light-#{$i} {
+          color: mix(white,$val, $i *10)
+        }
+        .bg-#{$key}-light-#{$i} {
+            background-color: mix(white,$val,$i * 10);
+        }
+    }
+        // dark variation
+        @for $i from 1 through 9 {
+            .text-#{$key}-dark-#{$i} {
+              color: mix(black,$val, $i *10)
+            }
+            .bg-#{$key}-dark-#{$i} {
+                background-color: mix(black,$val,$i * 10);
+            }
+        }
+    }
+}
+
+
+code 6: parent Selectors ==> for hovers.
+
+
+@each $key, $val in $colors {
+    @if($val != black and $val != white) {
+  
+    // light variation
+    @for $i from 1 through 9 {
+        .text-hover-#{$key}-light-#{$i}{
+            &:hover {
+                color: mix(white,$val, $i *10)
+            }
+        }
+        .text-hover-#{$key}-dark-#{$i}{
+            &:hover {
+                color: mix(black,$val, $i *10)
+            }
+        }
+    }
+        // dark variation
+        @for $i from 1 through 9 {
+            .text-#{$key}-dark-#{$i} {
+              color: mix(black,$val, $i *10)
+            }
+            .bg-#{$key}-dark-#{$i} {
+                background-color: mix(black,$val,$i * 10);
+            }
+        }
+    }
+}
+
+example:
+
+
+
+
+code 7: mixins to reuse the btn code with definition defalt color
+btn-primary,btn-secondary,btn-error,btn-info,
+btn-outlined-primary,btn-outlined-secondary,btn-outlined-error
+
+
+
+<button class="btn-primary  text-white text-hover-white">Click ME!</button>
+<button class="btn text-white">Click ME!</button>
+<button class="btn-outlined-primary  text-primary text-hover-white">Click ME!</button>
+::
+
+
+
+
+
+cheat code 1: for fontsize,margin,padding
+here are creating the different font size using maths
+
+/ best technique
+$base-font-size: 1rem;
+$font-size-sm : $base-font-size * .75;
+$font-size-lg: $base-font-size * 1.5;
+$font-size-xl: $base-font-size * 2;
+$font-size-xxl: $base-font-size* 3;
+
+
+
+cheat code 2: create the color,margin,padding plaetete  for easy asssesing
+// color map platette
+$colors: (
+    "primary": $primary_color,
+    "secondary": $secondary,
+    "error": $error,
+    "info": $info,
+    "blue": #1919e6,
+    "red": red,
+    "green": green,
+    "white": white,
+    black: black
+);
+
+// gettitng value from map
+.test-btn {
+    background-color: map-get($colors,"blue");
+}
+
+
+@debug map-get($colors, $key:"green" );
+@debug map-has-key($map: $colors, $key:"secondary" );
+@debug map-has-key($map: $colors, $key:"tertairy" );
+@debug map-remove($map: $colors, $key: "red" ); // remicing red entry from map
+@debug map-merge($map1: $colors,$map2: ("pink": pink));
+@debug map-has-key($map: $colors, $key:"pink" );
+
+
+
+cheat code 3:  here we are crating the autmatic color bg and text color from platette
+here we are creating the different bg and text coloe just by coding...
+exmaple:
+text-primary,text-secondary,text-error ,text-info
+bg-primary,bg-secondary,bg-error,bg-info
+
+:::
+@each $key, $val in $colors {
+    .text-#{$key} {
+        color: $val
+    }
+    .bg-#{$key} {
+        background-color: $val;
+    }
+}
+
+// here we can use at its best  
+<p class=" bg-primary text-white">Helloe </p>
+
+
+example:
+text-primary { }
+bg-primary {}
+
+
+cheat code 4: creating light varition for each coloe and dark variabtion for each color.
+example:
+text-primary-light-1-9, text-secondary-light-1-9
+bg-primary-light-1-9,bg-secondary-light-1-9
+
+text-primary-dark-1-9, text-secondary-dark-1-9
+bg-primary-dark-1-9,bg-secondary-dark-1-9
+:::
+
+ 
+@each $key, $val in $colors {
+    .text-#{$key} {
+        color: $val
+    }
+    .bg-#{$key} {
+        background-color: $val;
+    }
+
+    // light variation
+    @for $i from 1 through 9 {
+        .text-#{$key}-light-#{$i} {
+          color: mix(white,$val, $i *10)
+        }
+        .bg-#{$key}-light-#{$i} {
+            background-color: mix(white,$val,$i * 10);
+        }
+    }
+        // dark variation
+        @for $i from 1 through 9 {
+            .text-#{$key}-dark-#{$i} {
+              color: mix(black,$val, $i *10)
+            }
+            .bg-#{$key}-dark-#{$i} {
+                background-color: mix(black,$val,$i * 10);
+            }
+        }
+}
+
+example:
+<span class="bg-primary-dark8 text-white"> </span>
+
+
+code 5 : if else statment.
+we will not create the variation for white and black for dark and ligght version
+@each $key, $val in $colors {
+    .text-#{$key} {
+        color: $val
+    }
+    .bg-#{$key} {
+        background-color: $val;
+    }
+
+    @if($val != black and $val != white) {
+  
+    // light variation
+    @for $i from 1 through 9 {
+        .text-#{$key}-light-#{$i} {
+          color: mix(white,$val, $i *10)
+        }
+        .bg-#{$key}-light-#{$i} {
+            background-color: mix(white,$val,$i * 10);
+        }
+    }
+        // dark variation
+        @for $i from 1 through 9 {
+            .text-#{$key}-dark-#{$i} {
+              color: mix(black,$val, $i *10)
+            }
+            .bg-#{$key}-dark-#{$i} {
+                background-color: mix(black,$val,$i * 10);
+            }
+        }
+    }
+}
+
+
+code 6: parent Selectors ==> for hovers.
+example:
+text-hover-primary-light-1-9,text-hover-secondary-light-1-9,
+text-hover-primary-dark-1-9,text-hover-secondary-dark-1-9
+text-primary-dark-1-9,text-secondary-dark-1-9
+bg-primary-dark-1-9,bg-secondary-dark-1-9
+::
+
+@each $key, $val in $colors {
+    @if($val != black and $val != white) {
+  
+    // light variation
+    @for $i from 1 through 9 {
+        .text-hover-#{$key}-light-#{$i}{
+            &:hover {
+                color: mix(white,$val, $i *10)
+            }
+        }
+        .text-hover-#{$key}-dark-#{$i}{
+            &:hover {
+                color: mix(black,$val, $i *10)
+            }
+        }
+    }
+        // dark variation
+        @for $i from 1 through 9 {
+            .text-#{$key}-dark-#{$i} {
+              color: mix(black,$val, $i *10)
+            }
+            .bg-#{$key}-dark-#{$i} {
+                background-color: mix(black,$val,$i * 10);
+            }
+        }
+    }
+}
+
+example:
+<a href="#" class="text-primary text-hover-red-light-1">hover me!!</a>
+
+
+
+code 6: mixins:
+@mixin btn($bg-color: #e2e2e2) {
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        border: 0;
+        padding: $base-padding $base-padding *2;
+        border-radius: $base-border-radius;
+        background-color: $bg-color;
+}
+
+.btn {
+    @include btn();
+}
+
+@each $key , $val in $colors {
+    .btn-#{$key} {
+        @include btn($val);
+        &:hover {
+            background-color: lighten($color: $val, $amount: 5);
+        }
+    }
+    .btn-outlined-#{$key} {
+        @include btn(#fff);
+        border: $base-border-thickness solid $val;
+        &:hover {
+            background-color: $val;
+        }
+    }
+}
+
+
+example:
+<button class="btn-primary  text-white text-hover-white">Click ME!</button>
+<button class="btn text-white">Click ME!</button>
+<button class="btn-outlined-primary  text-primary text-hover-white">Click ME!</button>
+
+
+code: 7: functions:
+btn-complement
+@each $key , $val in $colors {
+    .btn-#{$key} {
+        @include btn($val);
+        &:hover {
+            background-color: lighten($color: $val, $amount: 5);
+        }
+    }
+    .btn-outlined-#{$key} {
+        @include btn(#fff);
+        border: $base-border-thickness solid $val;
+        &:hover {
+            background-color: $val;
+        }
+    }
+    .btn-complement-#{$key} {
+        @include btn($val);
+        color: light-comp($val);
+        &:hover {
+            color: $val;
+            background-color: light-comp($val);
+        }
+    }
+}
+
+
+function for this::
+
+@function light-comp($color) {
+    $complement: complement($color);
+    $light-complement: lighten($complement,30%);
+    @return $light-complement;
+}
+
+example:
+btn-complement-primary, btn-complement-secondary
+
+<button class="btn-complement-primary  text-white tez">Click ME!</button>
+
+
+code 8: making utility classes:
+// m-4 pl-3 o-40
+utility.scss file name::
+::
+
+
+
+
+
+
+
+
+
+
+
+
