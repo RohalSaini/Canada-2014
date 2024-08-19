@@ -583,6 +583,344 @@ example how to use:
 <div class="responsive-test">changing colors</div>
 
 
+code: 9
+@use "sass:math";
+
+$grid-columns: 12;
+$grid-gaps: (
+  "0": 0,
+  "1": 10px,
+  "2": 20px,
+  "3": 30px,
+);
+$layout-values: flex-start, flex-end, center, space-between, space-around;
+
+// base layout classes
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+// grid gaps
+@each $key, $val in $grid-gaps {
+  .gap-#{$key} > * {
+    padding: $val;
+  }
+  .gap-#{$key} {
+    margin-left: -$val;
+    margin-right: -$val;
+  }
+}
+
+// justify content classes
+@each $val in $layout-values {
+  .justify-#{$val} {
+    justify-content: $val;
+  }
+}
+
+// col classes
+@include xs {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-xs {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include sm {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-sm {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include md {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-md {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include lg {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-lg {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include xl {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-xl {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+
+example:
+
+<div class="container">
+    <!-- grid system -->
+    <h2 class="mb-2">Grid System</h2>
+    <div class="row gap-2 justify-center">
+      <div class="col-12-xs col-5-sm col-3-xl">
+        <div class="card">
+          <h3 class="card-title">Hello, ninjas</h3>
+          <p class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+      </div>
+      <div class="col-12-xs col-5-sm col-3-xl">
+        <div class="card">
+          <h3 class="card-title">Hello, ninjas</h3>
+          <p class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+      </div>
+      <div class="col-12-xs col-5-sm col-3-xl">
+        <div class="card">
+          <h3 class="card-title">Hello, ninjas</h3>
+          <p class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+      </div>
+      <div class="col-12-xs col-5-sm col-3-xl">
+        <div class="card">
+          <h3 class="card-title">Hello, ninjas</h3>
+          <p class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+code 10: navbar :: with extend keywords ??
+
+%flex-layout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.navbar {
+  @extend %flex-layout;
+  padding: $base-padding $base-padding * 2;
+  box-shadow: $base-box-shadow;
+  .site-title {
+    font-size: $font-size-lg;
+  }
+  .container {
+    @extend %flex-layout;
+  }
+}
+
+@each $key, $val in $colors {
+  .navbar-#{$key} {
+    @extend .navbar;
+    background-color: $val;
+  }
+}
+
+example:
+<nav class="navbar-primary text-white mb-4">
+    <div class="container">
+      <h2 class="site-title">Shinobi CSS</h2>
+      <p>A lightweight CSS library for dev ninjas</p>
+    </div>
+  </nav>
+
+
+code 10: homepage
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/index.css">
+  <title>My Portfolio</title>
+</head>
+<body>
+  
+  <!-- navbar -->
+  <nav class="navbar justify-between">
+    <div class="container">
+      <h1 class="site-title">Shinobi Designs</h1>
+      <ul class="display-f">
+        <li class="ml-1 text-hover-secondary"><a href="#work">Our Work</a></li>
+        <li class="ml-1 text-hover-secondary"><a href="#about">About Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- intro -->
+  <div class="container mt-5">
+    <div class="row justify-center">
+      <div class="col-12-xs col-5-md">
+        <h2>
+          <div class="font-xxl">Black-Belt</div>
+          <div class="font-xxl text-secondary">Your Website</div>
+        </h2>
+        <p class="text-gray mt-2 mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a href="#work" class="btn-outlined-secondary text-secondary text-hover-white">View Our Work</a>
+      </div>
+      <div class="col-12-xs col-5-md">
+        <img src="/img/laptop.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- about -->
+  <section id="about" class="bg-secondary-light-9 mt-5 pt-4 pb-4">
+    <div class="container">
+      <h2 class="mb-2">About Shinobi Designs</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ipsam animi aliquid sequi fuga, nam nesciunt dolore libero dolorem exercitationem aliquam cupiditate atque illo, quae dicta doloribus et? Ab ipsam inventore quam asperiores, sequi unde tenetur accusamus, distinctio magni necessitatibus quis deserunt id alias. Iste eum ea labore rerum voluptatibus.</p>
+      <p class="mt-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta nam, corrupti dolorum inventore perspiciatis id illum repellat iste amet sapiente ducimus nihil molestias quasi, totam, ratione minima molestiae blanditiis iure consequatur praesentium debitis. Nulla maiores doloremque tempore nobis dolorum amet!</p>
+    </div>
+  </section>
+
+  <!-- work section -->
+  <section id="work" class="mt-5">
+    <div class="container">
+      <h2 class="mb-2">Some of Our Work</h2>
+      <div class="row gap-2">
+        <div class="col-12-xs col-6-md col-3-lg">
+          <div class="card p-0">
+            <h3 class="card-title m-1">Mario Club</h3>
+            <img src="/img/mario.png" alt="">
+            <p class="m-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, hic!</p>
+          </div>
+        </div>
+        <div class="col-12-xs col-6-md col-3-lg">
+          <div class="card p-0">
+            <h3 class="card-title m-1">Ninja Food</h3>
+            <img src="/img/food.png" alt="">
+            <p class="m-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, hic!</p>
+          </div>
+        </div>
+        <div class="col-12-xs col-6-md col-3-lg">
+          <div class="card p-0">
+            <h3 class="card-title m-1">Just Add Marmite</h3>
+            <img src="/img/marmite.png" alt="">
+            <p class="m-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, hic!</p>
+          </div>
+        </div>
+        <div class="col-12-xs col-6-md col-3-lg">
+          <div class="card p-0">
+            <h3 class="card-title m-1">Ninja Notes</h3>
+            <img src="/img/notes.png" alt="">
+            <p class="m-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, hic!</p>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-center mt-2">
+        <button class="btn-secondary text-white font-md">View All</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="bg-gray-light-7 pt-3 pb-3 mt-5">
+    <div class="container">
+      copyright 2021 Shinobi Designs
+    </div>
+  </footer>
+</body>
+</html>
+
+::
+code 11: customize the UI theme
+// customize theme variables
+$secondary: indigo;
+$base-padding: 1rem;
+$base-border-thickness: 3px;
+
+@import 'shinobi';
+
+changes in _variable.scss
+// theme colors
+$primary: #326dee !default;
+$secondary: #1ac886 !default;
+$error: #d32752 !default;
+$info: #f6c31c !default;
+
+// color palette
+$colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "error": $error,
+  "info": $info,
+  "blue": #1919e6,
+  "red": #e61919,
+  "yellow": #e6e619,
+  "green": #19e635,
+  "orange": #ffa600,
+  "purple": #9900ff,
+  "gray": #808080,
+  "black": black,
+  "white": white,
+) !default;
+
+// spacing
+$base-padding: 0.75rem !default;
+$base-margin: 0.75rem !default;
+
+// borders
+$base-border-thickness: 1px !default;
+$base-border-radius: 20px !default;
+
+// box-shadow
+$base-box-shadow: 1px 3px 5px rgba(0,0,0,0.1) !default;
+
+// font sizes
+$base-font-size: 1rem !default;
+$font-size-sm: $base-font-size * 0.75 !default;
+$font-size-lg: $base-font-size * 1.5 !default;
+$font-size-xl: $base-font-size * 2 !default;
+$font-size-xxl: $base-font-size * 3 !default;
+
+
+:::
+code 12: last :: Adding badge
+@use 'sass:math';
+
+@mixin badge($bg-color: $info) {
+  border-radius: $base-border-radius * 4;
+  background-color: $bg-color;
+  padding: math.div($base-padding, 4) math.div($base-padding, 2);
+  font-size: $font-size-sm;
+  font-weight: normal;
+}
+
+.badge {
+  @include badge;
+}
+
+@each $key, $val in $colors {
+  .badge-#{$key}{
+    @include badge($val);
+  }
+}
+
+::
+<h3 class="card-title m-1">
+    Mario Club <span class="badge-orange text-white ml-1">new</span>
+</h3>
 
 
 
