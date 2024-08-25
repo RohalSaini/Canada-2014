@@ -1,0 +1,15 @@
+1. how to use google fonts
+STEP 1: download the google fonts
+STEP 2: now in the style.css make the code as:
+
+@font-face {
+ font-family: UI; // user's define family name
+ src: url('./fonts/Matemasie/Matemasie-Regular.ttf'); // source of ttf extension file
+}
+
+h1 {
+    font-family: UI; // how to use user's define font-family
+}
+
+
+2. 
